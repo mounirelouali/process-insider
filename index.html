@@ -48,8 +48,8 @@ a.ep:hover{background:var(--card);color:var(--t1)}
 .ep .t{flex:1;min-width:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .ep em{font-style:normal;font-size:12px;color:var(--t3)}
 .ep.off{cursor:default;color:var(--t3)}
-.nav-foot{margin:auto 8px 0;color:var(--t3);font-size:12px;line-height:16px}
-.app[data-nav=closed] .logo span:last-child,.app[data-nav=closed] .who,.app[data-nav=closed] .sec,.app[data-nav=closed] .ep .t,.app[data-nav=closed] .ep em,.app[data-nav=closed] .nav-foot{display:none}
+.nav-foot{margin:0 8px;color:var(--t3);font-size:12px;line-height:16px}
+.app[data-nav=closed] .cta,.app[data-nav=closed] .logo span:last-child,.app[data-nav=closed] .who,.app[data-nav=closed] .sec,.app[data-nav=closed] .ep .t,.app[data-nav=closed] .ep em,.app[data-nav=closed] .nav-foot{display:none}
 .app[data-nav=closed] .nav-top{flex-direction:column;height:auto;gap:12px;padding:0}
 .app[data-nav=closed] .logo{padding:8px 0}
 .app[data-nav=closed] .nav ul{margin-top:24px}
@@ -82,13 +82,26 @@ h1{margin:0;font-size:20px;line-height:24px;font-weight:500;white-space:nowrap;o
 .tile.as i{background:#e5484d}.tile.to i{background:#4cc38a}
 .tile span{display:block}
 /* suite : contact, affiché seulement si un lien est renseigné */
-.cta{margin-top:auto;flex:none;padding:16px;border:1px solid var(--line2);border-radius:12px;background:var(--bg)}
+.cta{margin:auto 0 16px;flex:none;padding:16px;border:1px solid var(--line2);border-radius:12px;background:var(--bg)}
 .cta p{margin:0 0 12px;color:var(--t1)}.cta .acts{display:flex;flex-wrap:wrap;gap:8px}
 .end{position:absolute;left:50%;bottom:32px;transform:translateX(-50%);max-width:min(560px,calc(100% - 48px));background:rgba(11,13,20,.94);border:1px solid var(--line2);border-radius:14px;padding:16px;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .end p{margin:0 0 12px}.end .acts{display:flex;flex-wrap:wrap;gap:8px}
 .stagewrap{position:relative;flex:1;min-height:0}
 .stagewrap .stage{height:100%}
 [hidden]{display:none!important}
+.lnk{appearance:none;background:none;border:0;padding:0;color:var(--t2);cursor:pointer;text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px;transition:color .15s var(--ease),text-decoration-color .15s var(--ease)}
+.lnk:hover{color:var(--t1);text-decoration-color:var(--acc)}
+dialog{background:var(--card);color:var(--t1);border:1px solid var(--line2);border-radius:16px;padding:0;width:min(520px,calc(100% - 32px));box-shadow:0 24px 64px rgba(0,0,0,.5)}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+.dlg{padding:24px;display:grid;gap:16px}
+.dlg h3{margin:0;font-size:20px;line-height:24px;font-weight:500}.dlg p{margin:0;color:var(--t2)}
+.dlg ol{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.dlg li{display:flex;gap:12px;align-items:baseline;color:var(--t1)}.dlg li i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--acc);width:16px;flex:none;text-align:center}
+.dlg label{display:grid;gap:8px;color:var(--t3);font-size:12px;line-height:16px}
+.dlg textarea{width:100%;min-height:96px;resize:vertical;background:var(--bg);color:var(--t1);border:1px solid var(--line2);border-radius:10px;padding:12px;font:inherit}
+.dlg .note{font-size:12px;line-height:16px;color:var(--t3)}
+.dlg .acts{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.dlg .ok{color:#4cc38a;font-size:13px}
 /* lecture de l'analyste : constat, cause, décision, effet */
 .ins{background:var(--card);border-left:1px solid var(--line);overflow:hidden;min-width:0;visibility:visible;transition:visibility 0s .3s}
 .app[data-ins=closed] .ins{visibility:hidden}
@@ -110,7 +123,7 @@ h1{margin:0;font-size:20px;line-height:24px;font-weight:500;white-space:nowrap;o
   .app[data-nav=open] .nav{transform:none}
   .app[data-nav=closed] .nav-top{flex-direction:row;height:36px;padding:0 4px 0 8px;gap:0}
   .app[data-nav=closed] .logo span:last-child,.app[data-nav=closed] .who,.app[data-nav=closed] .sec,.app[data-nav=closed] .ep .t,.app[data-nav=closed] .ep em,.app[data-nav=closed] .nav-foot{display:revert}
-  .app[data-nav=closed] .nav-foot{display:block}.app[data-nav=closed] .ep{justify-content:flex-start;padding:8px}
+  .app[data-nav=closed] .nav-foot,.app[data-nav=closed] .cta:not([hidden]){display:block}.app[data-nav=closed] .ep{justify-content:flex-start;padding:8px}
   .ins{position:fixed;inset:auto 0 0 0;max-height:64dvh;border-left:0;border-top:1px solid var(--line);border-radius:16px 16px 0 0;z-index:30;transform:translateY(100%);visibility:visible;transition:transform .3s var(--ease)}
   .app[data-ins=open] .ins{transform:none}.app[data-ins=closed] .ins{visibility:visible}
   .ins-in{width:100%;max-height:64dvh}
@@ -141,16 +154,17 @@ h1{margin:0;font-size:20px;line-height:24px;font-weight:500;white-space:nowrap;o
     <p class="sec">Saison 1 · Recrutement</p>
     <ul id="list">
       <li><a class="ep on" href="#e01" data-id="e01" title="Un recrutement qui dure des semaines"><span class="n">1</span><span class="t">Un recrutement qui dure des semaines</span></a></li>
-      <li><span class="ep off" aria-disabled="true" title="Épisode 2 · bientôt"><span class="n">2</span><span class="t">Et si le meilleur candidat n'attendait pas ?</span><em>Bientôt</em></span></li>
-      <li><span class="ep off" aria-disabled="true" title="Épisode 3 · bientôt"><span class="n">3</span><span class="t">Pourquoi le candidat doit-il se répéter ?</span><em>Bientôt</em></span></li>
+      <li><a class="ep" href="#e02" data-id="e02" title="Et si le meilleur candidat n'attendait pas ?"><span class="n">2</span><span class="t">Et si le meilleur candidat n'attendait pas ?</span></a></li>
+      <li><a class="ep" href="#e03" data-id="e03" title="Pourquoi le candidat doit-il se répéter ?"><span class="n">3</span><span class="t">Pourquoi le candidat doit-il se répéter ?</span></a></li>
     </ul>
+    <div class="cta" id="cta" hidden><p>Un processus à modéliser ? Commentez le post et suivez-moi : je le modélise gratuitement s'il entre dans la série.</p><div class="acts" data-acts><button class="btn p" type="button" data-ask>Proposer mon problème</button></div></div>
     <p class="nav-foot">Situations fictives, projet pédagogique personnel</p>
   </aside>
 
   <section class="main">
     <header class="bar">
       <button class="ib only-m" id="menuBtn" type="button" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-      <div class="ttl"><h1 id="h">Un recrutement qui dure des semaines</h1><p id="sub">Du constat à la décision : AS-IS puis TO-BE, animé en 3D</p></div>
+      <div class="ttl"><h1 id="h">Un recrutement qui dure des semaines</h1><p id="sub"><button type="button" class="lnk" id="askTop">Un processus à modéliser ? Proposez votre problème</button></p></div>
       <div class="act">
         <button class="btn hide-m" id="insBtn" type="button" aria-pressed="true" aria-label="Lecture de l'analyste" title="Lecture de l'analyste"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></svg><span>Lecture de l'analyste</span></button>
         <a class="btn p" id="contactTop" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Me contacter</span></a>
@@ -163,21 +177,25 @@ h1{margin:0;font-size:20px;line-height:24px;font-weight:500;white-space:nowrap;o
     </div>
     <div class="stagewrap">
       <div class="stage"><iframe id="anim" src="s01/e01/" title="Épisode 1 : animation interactive" allow="fullscreen; autoplay"></iframe></div>
-      <div class="end" id="end" hidden><p>Vous recrutez quelqu'un qui sait cadrer ce type de besoin ?</p><div class="acts" data-acts></div></div>
+      <div class="end" id="end" hidden><p>Un processus comme celui-ci dans votre service ?</p><div class="acts" data-acts><button class="btn p" type="button" data-ask>Proposer mon problème</button></div></div>
     </div>
   </section>
 
   <aside class="ins" id="ins" aria-label="Lecture de l'analyste"><div class="ins-in">
     <h2>Lecture de l'analyste</h2>
     <p class="lead">L'essentiel de l'épisode</p>
-    <div class="row"><b>Constat</b><p>Un recrutement dure des semaines et le manager refuse chaque présélection.</p></div>
-    <div class="row"><b>Cause</b><p>Le besoin n'a jamais été décrit. Aucun critère n'est validé avant la publication de l'annonce.</p></div>
-    <div class="row"><b>Décision</b><p>Cadrer avant de chercher : le manager, la recruteuse et l'analyste définissent le problème à résoudre, classent les critères et fixent la preuve attendue pour chacun.</p></div>
-    <div class="row"><b>Effet</b><p>La boucle de recrutement existe toujours, mais elle est courte, anticipée et choisie.</p></div>
-    <div class="row"><b>Notation BPMN</b><div class="tags"><span>Pool et couloirs</span><span>Passerelle exclusive</span><span>Objet de données</span><span>Flux de message</span><span>Événement de fin</span></div></div>
-  <div class="cta" id="cta" hidden><p>Vous recrutez un Business Analyst ?</p><div class="acts" data-acts></div></div>
+    <div id="rows"></div>
   </div></aside>
   <div class="scrim" id="scrim"></div>
+  <dialog id="dlg" aria-labelledby="dlgT"><form method="dialog" class="dlg">
+    <h3 id="dlgT">Un processus à modéliser ?</h3>
+    <p>Décrivez en une phrase le problème de votre service. S'il entre dans le cadre de la série (un processus métier qui se modélise de l'AS-IS au TO-BE), je le modélise gratuitement et je publie le résultat, anonymisé.</p>
+    <ol><li><i>1</i><span>Suivez mon profil LinkedIn</span></li><li><i>2</i><span>Commentez le post de l'épisode avec votre problème</span></li><li><i>3</i><span>Je réponds en commentaire et j'indique si je le retiens</span></li></ol>
+    <label>Votre problème en une phrase<textarea id="ask" maxlength="280" placeholder="Exemple : les demandes de congé passent par trois personnes et se perdent"></textarea></label>
+    <p class="note">Le commentaire est public sur LinkedIn : ne citez ni nom de personne ni donnée confidentielle.</p>
+    <p class="ok" id="askOk" hidden></p>
+    <div class="acts"><button class="btn" value="cancel">Fermer</button><a class="btn" id="follow" target="_blank" rel="noopener">Suivre sur LinkedIn</a><button class="btn p" type="button" id="send">Copier et commenter</button></div>
+  </form></dialog>
 </div>
 
 <script type="module">
@@ -207,9 +225,9 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&mq.matches){setNav('closed')
 mq.addEventListener('change',init);
 $('#fs').onclick=()=>{const f=$('#anim');(f.requestFullscreen||f.webkitRequestFullscreen||(()=>{})).call(f);};
 // contact : les boutons n'apparaissent que si un lien est renseigné (aucune adresse n'est devinée)
-const CFG={linkedin:'https://www.linkedin.com/in/mounirelouali/',cv:''};
+const CFG={linkedin:'https://www.linkedin.com/in/mounirelouali/',cv:'',post:''};
 const mkActs=()=>{const f=document.createDocumentFragment();
-  if(CFG.linkedin){const a=document.createElement('a');a.className='btn p';a.href=CFG.linkedin;a.target='_blank';a.rel='noopener';a.textContent='Me contacter sur LinkedIn';f.append(a);}
+  if(CFG.linkedin){const a=document.createElement('a');a.className='btn';a.href=CFG.linkedin;a.target='_blank';a.rel='noopener';a.textContent='Me contacter';f.append(a);}
   if(CFG.cv){const a=document.createElement('a');a.className='btn';a.href=CFG.cv;a.target='_blank';a.rel='noopener';a.textContent='Voir mon CV';f.append(a);}
   return f;};
 if(CFG.linkedin||CFG.cv){document.querySelectorAll('[data-acts]').forEach(n=>n.append(mkActs()));$('#cta').hidden=false;}
@@ -220,11 +238,37 @@ const api=()=>{try{return frame.contentWindow.__bpmn||null}catch(e){return null}
 tiles.forEach(t=>t.onclick=()=>{const b=api();if(b){b.setScenario(t.dataset.sc);b.play(true);}tiles.forEach(x=>x.setAttribute('aria-pressed',x===t));});
 setInterval(()=>{const b=api();if(!b)return;try{const k=b.S.key;tiles.forEach(x=>x.setAttribute('aria-pressed',x.dataset.sc===k));
   $('#end').hidden=!((CFG.linkedin||CFG.cv)&&k==='tobe'&&b.t>=b.S.dur-.4);}catch(e){}},400);
-// épisodes : un seul disponible pour l'instant, prêt pour les suivants
-const EP={e01:{src:'s01/e01/'}};
-const open=id=>{const e=EP[id]||EP.e01;const f=$('#anim');if(!f.src.endsWith(e.src))f.src=e.src;document.querySelectorAll('a.ep').forEach(a=>a.classList.toggle('on',a.dataset.id===id));if(mq.matches)setNav('closed');};
+// épisodes
+const EP={
+ e01:{src:'s01/e01/',title:'Un recrutement qui dure des semaines',pain:'Des semaines de recrutement, des présélections refusées, une annonce rediffusée à chaque tour',gain:"Des critères validés par tous avant l'annonce : une boucle courte, anticipée et choisie",
+  rows:[['Constat','Un recrutement dure des semaines et le manager refuse chaque présélection.'],['Cause',"Le besoin n'a jamais été décrit. Aucun critère n'est validé avant la publication de l'annonce."],['Décision',"Cadrer avant de chercher : le manager, la recruteuse et l'analyste définissent le problème à résoudre, classent les critères et fixent la preuve attendue pour chacun."],['Effet','La boucle de recrutement existe toujours, mais elle est courte, anticipée et choisie.']],
+  tags:['Pool et couloirs','Passerelle exclusive','Objet de données','Flux de message','Événement de fin']},
+ e02:{src:'s01/e02/',title:"Et si le meilleur candidat n'attendait pas ?",pain:'Un dossier qui attend, un candidat qui part, tout est à refaire',gain:"Des délais explicites : relance à 48 h, arbitrage à 5 jours, une décision plutôt qu'un abandon",
+  rows:[['Constat','Un dossier attend chez le manager. Le candidat finit par se retirer pour une autre offre.'],['Cause','Aucun délai de réponse, aucune relance, aucune règle de décision.'],['Décision','Un engagement de réponse sous 48 heures, une relance qui ne bloque rien, un arbitrage de la direction au bout de 5 jours.'],['Effet',"Le candidat reste dans le processus : un entretien est planifié, ou le recrutement est annulé par décision et non par abandon."]],
+  tags:['Événement de bordure','Minuteur non interruptif','Minuteur interruptif','Sous-processus','Événement de lien','Passerelle exclusive']},
+ e03:{src:'s01/e03/',title:'Pourquoi le candidat doit-il se répéter ?',pain:"Le candidat se répète, les notes restent chez le manager, un entretien de plus est envisagé",gain:'Une trame commune, deux évaluations en parallèle, réunies avant la décision',
+  rows:[['Constat',"Le candidat raconte deux fois les mêmes expériences, d'abord au manager, puis à la recruteuse. Un entretien complémentaire est envisagé."],['Cause',"Les rôles et les thèmes d'entretien n'ont pas été répartis en amont, et les retours restent dispersés."],['Décision',"Une trame commune, un domaine d'évaluation par personne, un entretien coordonné, puis deux évaluations en parallèle réunies avant la décision."],['Effet','Deux regards croisés, sans faire répéter inutilement le candidat.']],
+  tags:['Pool et couloirs','Tâche manuelle','Passerelle parallèle','Passerelle exclusive','Objet de données','Flux de message'],note:'Modèle BPMN en cours de relecture'}
+};
+const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const open=id=>{const e=EP[id]||EP.e01;id=EP[id]?id:'e01';const f=$('#anim');if(!f.src.endsWith(e.src))f.src=e.src;
+  document.querySelectorAll('a.ep').forEach(a=>a.classList.toggle('on',a.dataset.id===id));
+  $('#h').textContent=e.title;f.title='Épisode '+id.slice(1)+' : animation interactive';
+  $('.tile.as span').textContent=e.pain;$('.tile.to span').textContent=e.gain;
+  $('#rows').innerHTML=e.rows.map(r=>'<div class="row"><b>'+r[0]+'</b><p>'+esc(r[1])+'</p></div>').join('')+'<div class="row"><b>Notation BPMN</b><div class="tags">'+e.tags.map(t=>'<span>'+t+'</span>').join('')+(e.note?'<span>'+e.note+'</span>':'')+'</div></div>';
+  tiles.forEach(x=>x.setAttribute('aria-pressed',x.dataset.sc==='asis'));
+  if(mq.matches)setNav('closed');};
 addEventListener('hashchange',()=>open(location.hash.slice(1)));
+// demande de modélisation : suivre + commenter sur LinkedIn (la page n'envoie aucune donnée)
+const dlg=$('#dlg');
+document.querySelectorAll('[data-ask],#askTop').forEach(b=>b.addEventListener('click',()=>{$('#askOk').hidden=true;if(dlg.showModal)dlg.showModal();}));
+$('#follow').href=CFG.linkedin;
+if(!CFG.post)$('#send').hidden=true;
+$('#send').onclick=async()=>{const t=$('#ask').value.trim();if(!t){$('#ask').focus();return;}
+  try{await navigator.clipboard.writeText('Problème à modéliser : '+t);$('#askOk').textContent='Texte copié : collez-le dans un commentaire du post.';}catch(e){$('#ask').select();$('#askOk').textContent='Copiez le texte (Ctrl+C), puis collez-le dans un commentaire du post.';}
+  $('#askOk').hidden=false;window.open(CFG.post,'_blank','noopener');};
 init();
+open(location.hash.slice(1));
 // entrée : montée courte et décalée, une seule courbe
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
   animate('.nav .logo,.nav .who,.nav .sec,.nav .ep,.nav .nav-foot',{opacity:[0,1],y:[8,0],delay:stagger(50),duration:420,ease:'outExpo'});
