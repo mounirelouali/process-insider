@@ -71,6 +71,24 @@ h1{margin:0;font-size:20px;line-height:24px;font-weight:500;white-space:nowrap;o
 .stage{flex:1;min-height:0;padding:0 24px 24px}
 .stage iframe{display:block;width:100%;height:100%;border:1px solid var(--line);border-radius:16px;background:#e9edf6}
 
+/* douleur AS-IS / gain TO-BE : deux onglets qui pilotent l'animation */
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 24px 12px;flex:none}
+.tile{display:block;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 16px;cursor:pointer;color:var(--t2);transition:border-color .15s var(--ease),background .15s var(--ease)}
+.tile:hover{border-color:var(--line2)}
+.tile[aria-pressed=true]{background:var(--raised);border-color:var(--line2);color:var(--t1);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.tile b{display:flex;align-items:center;gap:8px;font-weight:500;font-size:12px;line-height:16px;color:var(--t3);margin-bottom:4px}
+.tile[aria-pressed=true] b{color:var(--t2)}
+.tile i{width:8px;height:8px;border-radius:50%;flex:none}
+.tile.as i{background:#e5484d}.tile.to i{background:#4cc38a}
+.tile span{display:block}
+/* suite : contact, affiché seulement si un lien est renseigné */
+.cta{margin-top:24px;padding:16px;border:1px solid var(--line2);border-radius:12px;background:var(--bg)}
+.cta p{margin:0 0 12px;color:var(--t1)}.cta .acts{display:flex;flex-wrap:wrap;gap:8px}
+.end{position:absolute;left:50%;bottom:32px;transform:translateX(-50%);max-width:min(560px,calc(100% - 48px));background:rgba(11,13,20,.94);border:1px solid var(--line2);border-radius:14px;padding:16px;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.end p{margin:0 0 12px}.end .acts{display:flex;flex-wrap:wrap;gap:8px}
+.stagewrap{position:relative;flex:1;min-height:0}
+.stagewrap .stage{height:100%}
+[hidden]{display:none!important}
 /* lecture de l'analyste : constat, cause, décision, effet */
 .ins{background:var(--card);border-left:1px solid var(--line);overflow:hidden;min-width:0;visibility:visible;transition:visibility 0s .3s}
 .app[data-ins=closed] .ins{visibility:hidden}
@@ -100,6 +118,7 @@ h1{margin:0;font-size:20px;line-height:24px;font-weight:500;white-space:nowrap;o
   .bar{height:56px;padding:0 12px;gap:8px}
   .ttl p,.btn span{display:none}
   .stage{padding:0 12px 12px}
+  .pg{padding:0 12px 8px;gap:8px}.tile{padding:8px 12px}.tile span{display:none}.tile b{margin:0}
   #navToggle{display:none}.only-m{display:grid!important}
   .btn{padding:0 12px}
 }
@@ -133,10 +152,18 @@ h1{margin:0;font-size:20px;line-height:24px;font-weight:500;white-space:nowrap;o
       <div class="ttl"><h1 id="h">Un recrutement qui dure des semaines</h1><p id="sub">Du constat à la décision : AS-IS puis TO-BE, animé en 3D</p></div>
       <div class="act">
         <button class="btn hide-m" id="insBtn" type="button" aria-pressed="true"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></svg><span>Lecture de l'analyste</span></button>
-        <button class="btn p" id="fs" type="button"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span>Plein écran</span></button>
+        <a class="btn p" id="contactTop" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Me contacter</span></a>
+        <button class="btn" id="fs" type="button"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span>Plein écran</span></button>
       </div>
     </header>
-    <div class="stage"><iframe id="anim" src="s01/e01/" title="Épisode 1 : animation interactive" allow="fullscreen; autoplay"></iframe></div>
+    <div class="pg" id="pg">
+      <button class="tile as" type="button" data-sc="asis" aria-pressed="true"><b><i></i>AS-IS · ce que ça coûte</b><span>Des semaines de recrutement, des présélections refusées, une annonce rediffusée à chaque tour</span></button>
+      <button class="tile to" type="button" data-sc="tobe" aria-pressed="false"><b><i></i>TO-BE · ce que ça change</b><span>Des critères validés par tous avant l'annonce : une boucle courte, anticipée et choisie</span></button>
+    </div>
+    <div class="stagewrap">
+      <div class="stage"><iframe id="anim" src="s01/e01/" title="Épisode 1 : animation interactive" allow="fullscreen; autoplay"></iframe></div>
+      <div class="end" id="end" hidden><p>Vous recrutez quelqu'un qui sait cadrer ce type de besoin ?</p><div class="acts" data-acts></div></div>
+    </div>
   </section>
 
   <aside class="ins" id="ins" aria-label="Lecture de l'analyste"><div class="ins-in">
@@ -147,6 +174,7 @@ h1{margin:0;font-size:20px;line-height:24px;font-weight:500;white-space:nowrap;o
     <div class="row"><b>Décision</b><p>Cadrer avant de chercher : le manager, la recruteuse et l'analyste définissent le problème à résoudre, classent les critères et fixent la preuve attendue pour chacun.</p></div>
     <div class="row"><b>Effet</b><p>La boucle de recrutement existe toujours, mais elle est courte, anticipée et choisie.</p></div>
     <div class="row"><b>Notation BPMN</b><div class="tags"><span>Pool et couloirs</span><span>Passerelle exclusive</span><span>Objet de données</span><span>Flux de message</span><span>Événement de fin</span></div></div>
+  <div class="cta" id="cta" hidden><p>Vous recrutez un Technical Business Analyst ?</p><div class="acts" data-acts></div></div>
   </div></aside>
   <div class="scrim" id="scrim"></div>
 </div>
@@ -177,6 +205,20 @@ $('#scrim').onclick=()=>{setNav('closed');setIns('closed');};
 addEventListener('keydown',e=>{if(e.key==='Escape'&&mq.matches){setNav('closed');setIns('closed');}});
 mq.addEventListener('change',init);
 $('#fs').onclick=()=>{const f=$('#anim');(f.requestFullscreen||f.webkitRequestFullscreen||(()=>{})).call(f);};
+// contact : les boutons n'apparaissent que si un lien est renseigné (aucune adresse n'est devinée)
+const CFG={linkedin:'',cv:''};
+const mkActs=()=>{const f=document.createDocumentFragment();
+  if(CFG.linkedin){const a=document.createElement('a');a.className='btn p';a.href=CFG.linkedin;a.target='_blank';a.rel='noopener';a.textContent='Me contacter sur LinkedIn';f.append(a);}
+  if(CFG.cv){const a=document.createElement('a');a.className='btn';a.href=CFG.cv;a.target='_blank';a.rel='noopener';a.textContent='Voir mon CV';f.append(a);}
+  return f;};
+if(CFG.linkedin||CFG.cv){document.querySelectorAll('[data-acts]').forEach(n=>n.append(mkActs()));$('#cta').hidden=false;}
+if(CFG.linkedin){const t=$('#contactTop');t.href=CFG.linkedin;t.hidden=false;}
+// douleur / gain : les deux onglets pilotent l'animation et suivent son état
+const frame=$('#anim'),tiles=[...document.querySelectorAll('.tile')];
+const api=()=>{try{return frame.contentWindow.__bpmn||null}catch(e){return null}};
+tiles.forEach(t=>t.onclick=()=>{const b=api();if(b){b.setScenario(t.dataset.sc);b.play(true);}tiles.forEach(x=>x.setAttribute('aria-pressed',x===t));});
+setInterval(()=>{const b=api();if(!b)return;try{const k=b.S.key;tiles.forEach(x=>x.setAttribute('aria-pressed',x.dataset.sc===k));
+  $('#end').hidden=!((CFG.linkedin||CFG.cv)&&k==='tobe'&&b.t>=b.S.dur-.4);}catch(e){}},400);
 // épisodes : un seul disponible pour l'instant, prêt pour les suivants
 const EP={e01:{src:'s01/e01/'}};
 const open=id=>{const e=EP[id]||EP.e01;const f=$('#anim');if(!f.src.endsWith(e.src))f.src=e.src;document.querySelectorAll('a.ep').forEach(a=>a.classList.toggle('on',a.dataset.id===id));if(mq.matches)setNav('closed');};
@@ -187,6 +229,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
   animate('.nav .logo,.nav .who,.nav .sec,.nav .ep,.nav .nav-foot',{opacity:[0,1],y:[8,0],delay:stagger(50),duration:420,ease:'outExpo'});
   animate('.bar',{opacity:[0,1],y:[-8,0],duration:420,ease:'outExpo'});
   animate('.stage',{opacity:[0,1],scale:[.99,1],duration:500,delay:120,ease:'outExpo'});
+  animate('.tile',{opacity:[0,1],y:[8,0],delay:stagger(60,{start:100}),duration:420,ease:'outExpo'});
   animate('.ins .row,.ins h2,.ins .lead',{opacity:[0,1],y:[8,0],delay:stagger(50,{start:200}),duration:420,ease:'outExpo'});
 }
 </script>
