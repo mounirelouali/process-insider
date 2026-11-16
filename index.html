@@ -1,11 +1,89 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Process Insider · Les coulisses des processus</title>
-<meta name="description" content="Un problème. Une enquête. Une solution. Des mises en situation animées pour comprendre un processus métier, de l'AS-IS au TO-BE.">
-<link rel="stylesheet" href="style.css"></head><body><main>
-<p class="k">Série pédagogique</p><h1>Process Insider</h1>
-<p class="lead">Les coulisses des processus. Un problème. Une enquête. Une solution.</p>
-<p>Chaque épisode met en scène une situation de travail fictive, d'abord telle qu'elle se passe aujourd'hui (AS-IS), puis telle qu'elle pourrait se passer (TO-BE), avec les notations BPMN expliquées par l'action.</p>
-<h2>Séries</h2>
-<a class="card" href="s01/"><span class="tag">SAISON 1</span><b>Recrutement</b><span>Quand un recrutement s'éternise : cadrage, critères, preuves.</span></a>
-<p class="foot">Mises en situation fictives, projet pédagogique personnel. Mounir · Analyste fonctionnel.</p>
-</main></body></html>
+<meta name="description" content="Un problème. Une enquête. Une solution. Une animation 3D à manipuler : de l'AS-IS au TO-BE.">
+<meta property="og:title" content="Process Insider · Les coulisses des processus"><meta property="og:description" content="Un problème. Une enquête. Une solution. Une animation 3D à manipuler.">
+<style>
+:root{--bg:#070b14;--ink:#f1f5ff;--ink2:#9fb0d0;--line:rgba(160,185,255,.16);--acc:#7aa2ff;--acc2:#38d9a9;--mx:50%;--my:30%}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+/* fond : aurore + grille + projecteur qui suit le pointeur */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+.bg::before{content:"";position:absolute;inset:-20%;background:radial-gradient(40% 35% at 20% 20%,rgba(79,110,255,.38),transparent 70%),radial-gradient(35% 30% at 80% 15%,rgba(56,217,169,.26),transparent 70%),radial-gradient(45% 40% at 60% 90%,rgba(167,95,255,.22),transparent 70%);animation:aur 18s ease-in-out infinite alternate;filter:blur(20px)}
+.bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(60% 60% at var(--mx) var(--my),#000 0,transparent 75%);-webkit-mask-image:radial-gradient(60% 60% at var(--mx) var(--my),#000 0,transparent 75%)}
+@keyframes aur{to{transform:translate3d(4%,3%,0) scale(1.08)}}
+main{position:relative;z-index:1}
+header{display:flex;justify-content:space-between;align-items:center;max-width:1180px;margin:0 auto;padding:18px 20px;font-size:14px;color:var(--ink2)}
+header b{color:var(--ink);letter-spacing:.02em}
+.hero{max-width:1180px;margin:0 auto;padding:6px 20px 0;text-align:center}
+.k{display:inline-block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc2);border:1px solid rgba(56,217,169,.35);border-radius:999px;padding:6px 14px;margin:0 0 10px;background:rgba(56,217,169,.08)}
+h1{font-size:clamp(32px,5vw,58px);line-height:1.02;margin:0 0 10px;letter-spacing:-.035em;font-weight:800}
+h1 .w{display:inline-block;opacity:0}h1 .g .w{margin-right:.24em}
+h1 .g .w,h1 .g:not(:has(.w)){background:linear-gradient(100deg,#fff 0%,var(--acc) 60%,var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--ink2);font-size:clamp(15px,1.8vw,19px);margin:0 auto 16px;max-width:680px;opacity:0}
+/* le cadre de l'animation : visible dès l'arrivée, sans clic */
+.stage{position:relative;max-width:1120px;margin:0 auto;perspective:1400px;opacity:0}
+.frame{position:relative;border-radius:20px;padding:2px;background:linear-gradient(135deg,rgba(122,162,255,.8),rgba(56,217,169,.5) 45%,rgba(167,95,255,.6));box-shadow:0 40px 120px -30px rgba(79,110,255,.55),0 0 0 1px rgba(255,255,255,.06);transform-origin:50% 100%}
+.frame iframe{display:block;width:100%;height:clamp(380px,calc(100vh - 300px),680px);border:0;border-radius:18px;background:#e9edf6}
+.bar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0 0;align-items:center;color:var(--ink2);font-size:14px}
+.bar .t{color:var(--ink);font-weight:600}
+.btn{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink);padding:10px 18px;border-radius:999px;font:600 14px/1 inherit;cursor:pointer;text-decoration:none;backdrop-filter:blur(8px);transition:transform .2s,background .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px);background:rgba(122,162,255,.18);border-color:var(--acc)}
+.btn.p{background:linear-gradient(100deg,#4f6eff,#38d9a9);border:0;color:#04101f}
+.sec{max-width:1120px;margin:84px auto 0;padding:0 20px}
+.sec h2{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);margin:0 0 16px;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{position:relative;display:block;padding:22px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:inherit;text-decoration:none;overflow:hidden;opacity:0;transition:border-color .25s,transform .25s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(260px 160px at var(--cx,50%) var(--cy,0%),rgba(122,162,255,.22),transparent 70%);opacity:0;transition:opacity .25s}
+.card:hover{border-color:var(--acc);transform:translateY(-3px)}.card:hover::before{opacity:1}
+.card .tag{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--acc2)}.card b{display:block;font-size:20px;margin:6px 0 6px}.card span{color:var(--ink2);font-size:15px}
+.soon{border-style:dashed;pointer-events:none}.soon b{color:var(--ink2)}
+footer{max-width:1120px;margin:70px auto 0;padding:22px 20px 40px;color:var(--ink2);font-size:14px;border-top:1px solid var(--line)}
+@media (max-width:700px){.frame iframe{height:74vh;min-height:420px}header{padding:14px 16px}.hero{padding:4px 12px 0}}
+html.fb h1 .w,html.fb .sub,html.fb .stage,html.fb .card{opacity:1!important}
+@media (prefers-reduced-motion:reduce){.bg::before{animation:none}h1 .w,.sub,.stage,.card{opacity:1!important}}
+</style></head><body>
+<div class="bg" aria-hidden="true"></div>
+<main>
+<header><b>Process Insider</b><span>Mounir · Analyste fonctionnel</span></header>
+<section class="hero">
+  <p class="k">Série · Saison 1 · Recrutement</p>
+  <h1 id="t">Les coulisses <span class="g">des processus</span></h1>
+  <p class="sub" id="s">Un problème. Une enquête. Une solution. L'animation ci-dessous se manipule : lecture, vue d'ensemble, FR / EN.</p>
+  <div class="stage" id="stage"><div class="frame" id="frame">
+    <iframe id="anim" src="s01/e01/" title="Épisode 1 : Un recrutement qui dure des semaines (animation interactive)" allow="fullscreen; autoplay" loading="eager"></iframe>
+  </div></div>
+  <div class="bar" id="bar"><span class="t">Épisode 1 · Un recrutement qui dure des semaines</span>    <button class="btn p" id="fs" type="button">Plein écran</button><a class="btn" href="s01/e01/">Ouvrir seule</a></div>
+</section>
+<section class="sec"><h2>Épisodes</h2>
+  <div class="cards">
+    <a class="card" href="s01/e01/"><span class="tag">SAISON 1 · ÉPISODE 1</span><b>Un recrutement qui dure des semaines</b><span>Et si le problème n'était pas les candidats ? On cherche avant de savoir ce qu'on cherche.</span></a>
+  </div>
+</section>
+<footer>Mises en situation fictives, projet pédagogique personnel. Chaque épisode montre une situation de travail aujourd'hui (AS-IS), puis demain (TO-BE), avec la notation BPMN expliquée par l'action.</footer>
+</main>
+<script>setTimeout(function(){if(!window.__pi)document.documentElement.classList.add("fb")},3500)</script>
+<script type="module">window.__pi=1;
+import {animate,stagger,createTimeline} from 'https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm';
+const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const t=document.getElementById('t');
+// mots du titre séparés pour l'entrée en cascade
+const wrap=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(p=>{if(!p.trim()){if(p)f.append(p);return;}const s=document.createElement('span');s.className='w';s.textContent=p;f.append(s);});c.replaceWith(f);}else if(c.classList&&c.classList.contains('g')){c.querySelectorAll;const words=c.textContent.split(/\s+/);c.textContent='';words.forEach(p=>{const s=document.createElement('span');s.className='w';s.textContent=p;c.append(s);});c.style.display='inline';}});};
+wrap(t);
+// le projecteur suit le pointeur
+addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--mx',e.clientX+'px');document.documentElement.style.setProperty('--my',e.clientY+'px');});
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--cx',(e.clientX-r.left)+'px');c.style.setProperty('--cy',(e.clientY-r.top)+'px');}));
+if(!rm){
+  const tl=createTimeline({defaults:{ease:'outExpo',duration:900}});
+  tl.add('h1 .w',{opacity:[0,1],y:[28,0],rotateX:[-50,0],delay:stagger(90)},0)
+    .add('#s',{opacity:[0,1],y:[16,0]},500)
+    .add('#stage',{opacity:[0,1]},650,)
+    .add('#frame',{rotateX:[14,0],scale:[.9,1],y:[60,0],duration:1400},650)
+    .add('#bar',{opacity:[0,1],y:[10,0]},1500);
+  // cartes : apparition au défilement
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animate(e.target,{opacity:[0,1],y:[24,0],duration:800,ease:'outExpo'});io.unobserve(e.target);}}),{threshold:.2});
+  document.querySelectorAll('.card').forEach(c=>io.observe(c));
+}
+document.getElementById('fs').onclick=()=>{const f=document.getElementById('anim');(f.requestFullscreen||f.webkitRequestFullscreen||(()=>{}) ).call(f);};
+</script>
+<noscript><style>h1 .w,.sub,.stage,.card{opacity:1!important}</style></noscript>
+</body></html>
